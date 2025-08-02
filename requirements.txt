@@ -1,8 +1,8 @@
-
 # packages used in the app:
-python-dotenv
 flask
-
+pymupdf
+dotenv
+openai
 
 # packages used for testing:
 pytest

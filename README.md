@@ -20,7 +20,7 @@ pip install -r requirements.txt
 python app/main.py
 
 # if this file imports from other local py files:
-python -m app/main.py
+python -m app.main
 ```
 
 ### Web App
