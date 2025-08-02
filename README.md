@@ -2,26 +2,26 @@
 
 ## Setup 
 Create and activate a virtual environment:
-'''sh
+```sh
 conda create -n Resume-Helper-env python=3.11
 
 conda activate Resume-Helper-env
-'''
+```
 
 Install packages:
-'''sh
+```sh
 pip install -r requirements.txt
-'''
+```
 
 ## Usage
 ### Command-line App
-'''sh
+```sh
 # only works if this file does NOT import from other local py files:
 python app/main.py
 
 # if this file imports from other local py files:
 python -m app/main.py
-'''
+```
 
 ### Web App
 
@@ -39,7 +39,7 @@ python -m app/main.py
 ## Tests
 
 Run the tests:
-'''sh
+```sh
 # find all the tests and run them:
 pytest
-''
+```
