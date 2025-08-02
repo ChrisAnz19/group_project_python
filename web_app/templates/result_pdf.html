@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
 <link rel= "stylesheet" type= "text/css" href= "./styles.css">
-<html class="background"> 
+<html class="background">
     <head>
         <title>Welcome</title>
     </head>
+    
     <header>
         <h2>Resume Helper</h2>
     </header>
+    
     <nav>
         <a href="/">Home</a>
         <a href="/about">About</a>
@@ -16,9 +18,11 @@
     <div>
         <body>
             <h1>Resume Uploader</h1>
-            <p>Please enter your resume or upload it!</p>
+            <p>{{ resume_upload_message }}</p><br>
+            <p><b>Recommendations: </b> {{ resume_recommendation }}</p>
         </body>
     </div>
+
     <footer>
         <p>Footer</p>
     </footer>

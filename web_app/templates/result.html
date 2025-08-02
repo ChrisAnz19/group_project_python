@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "./styles.css">
 <html class="background">
     <head>
         <title>Welcome</title>
@@ -19,13 +20,6 @@
             <h1>Resume Uploader</h1>
             <p><b>Recommendations</b>: {{ resume_recommendation }}</p>
         </body>
-    </div>
-    <div>
-        <form action="/result" method="POST">
-            <label for="resume">Copy and Paste Your Resume:</label><br>
-            <textarea name="resume" rows="20" cols="50" id="resume">Copy Here!</textarea><br>
-            <input type="submit" value="Submit">
-        </form> 
     </div>
 
     <footer>
