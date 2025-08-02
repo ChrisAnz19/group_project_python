@@ -1,7 +1,8 @@
 
 # packages used in the app:
+python-dotenv
 flask
-pytest
+
 
 # packages used for testing:
 pytest

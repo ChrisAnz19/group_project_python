@@ -14,16 +14,29 @@ pip install -r requirements.txt
 '''
 
 ## Usage
-
+### Command-line App
 '''sh
 # only works if this file does NOT import from other local py files:
-python app/rps.py
+python app/main.py
 
 # if this file imports from other local py files:
-python -m app.rps
+python -m app/main.py
 '''
 
-### Tests
+### Web App
+
+ Run the web app:
+
+ ```sh
+ FLASK_APP=web_app flask run
+ ```
+
+ Visit in the browser, either:
+
+   + http://127.0.0.1:5000
+   + http://localhost:5000/
+
+## Tests
 
 Run the tests:
 '''sh

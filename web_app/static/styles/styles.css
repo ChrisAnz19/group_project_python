@@ -1,0 +1,53 @@
+.background {
+    font-family: Helvetica;
+    background-color: #18114c;
+    background-image: url('https://cdn.theforage.com/vinternships/companyassets/ay2tsYxaTif7Nt6z7/AA4Bnq2tJHALwE8cg/1680718790218/pexels-photo-14197334.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+nav{
+    background-color: #050036a0;
+    padding: 10px;
+    text-align: center;
+    display: grid; /* Makes the container a grid container */
+    grid-template-columns: auto auto auto; /* Defines column structure */
+    gap: 0px; /* Creates equal space between grid items (columns and rows) */
+}
+header{
+    background-color: #050036;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+}
+h1 {
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
+}
+p {
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
+}
+div{
+    background-color: #050036a0;
+}
+a:link, a:visited {
+    background-color: #18145597;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+a:hover, a:active {
+    background-color: #181455;
+}
+footer {
+    background-color: #18145597;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
