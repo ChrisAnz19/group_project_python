@@ -1,13 +1,17 @@
 import requests
 import json
+import os
+from dotenv import load_dotenv
 
-# Set up API key and base URL
-api_key = "6871f45caa454efe99c697cf"
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the API key from the environment
+api_key = os.getenv("SCRAPINGDOG_API_KEY")
+
 url = "https://api.scrapingdog.com/linkedin"
 
-
 # Ask the user for the linkId
-# Temporary - FE passes variable in PROD
 link_id = input("Enter the LinkedIn linkId (e.g. 'john-doe-1234'): ")
 
 # Set up the request parameters
@@ -24,8 +28,6 @@ response = requests.get(url, params=params)
 # Check the response and print JSON
 if response.status_code == 200:
     data = response.json()
-    print(json.dumps(data, indent=2))  # pretty print the JSON
+    print(json.dumps(data, indent=2))
 else:
-
-    #Temporary - JSON pushes to OpenAI API
     print(f"Request failed with status code: {response.status_code}")
