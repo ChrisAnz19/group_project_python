@@ -26,6 +26,7 @@ params = {
 response = requests.get(url, params=params)
 
 # Check the response and print JSON
+# BUILD ADDITIONAL ERROR HANDLING
 if response.status_code == 200:
     data = response.json()
     print(json.dumps(data, indent=2))
