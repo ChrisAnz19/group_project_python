@@ -1,5 +1,7 @@
 # clutter files / cached files:
+uploads/
 .env
+.DS_Store
 __pycache__
 
 # Passwords and sensitive information:
