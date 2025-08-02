@@ -1,2 +1,5 @@
+# clutter files / cached files:
 .env
+
+# Passwords and sensitive information:
 secrets.json

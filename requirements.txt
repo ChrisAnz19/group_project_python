@@ -1,0 +1,7 @@
+
+# packages used in the app:
+flask
+pytest
+
+# packages used for testing:
+pytest
