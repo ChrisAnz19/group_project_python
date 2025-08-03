@@ -61,8 +61,22 @@ if __name__ == "__main__":
     pdf_text = get_pdf_text(file_path)
     print(pdf_text)
 
-    prompt = "Summarize the following text: " + pdf_text
-    print(openai_response(prompt))
+    prompt = f"""
+    You are a professional career coach and recruiter. Review the following resume and provide a structured critique that includes:
+
+    1. **Overall Impression** – What kind of candidate does this resume reflect?
+    2. **Strengths** – What parts stand out positively?
+    3. **Areas for Improvement** – Where can the resume be clearer or stronger?
+    4. **Tone and Language** – Is the resume concise, action-oriented, and professional?
+    5. **Formatting Tips** – Any visual/layout suggestions?
+
+    Return your feedback in a friendly, blog-style tone—like you're writing a helpful article for job seekers. Be honest but supportive.
+
+    Resume:
+    \"\"\"
+    {pdf_text}
+    \"\"\"
+    """
 
     #link_id = input("Enter the LinkedIn linkId (e.g. 'john-doe-1234'): ")
     #get_linkedin_profile(link_id)
