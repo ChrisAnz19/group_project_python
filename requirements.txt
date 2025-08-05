@@ -1,8 +1,10 @@
 # packages used in the app:
 flask
+flask-cors
 pymupdf
-dotenv
+python-dotenv
 openai
+requests
 
 # packages used for testing:
 pytest
