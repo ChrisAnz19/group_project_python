@@ -2,7 +2,7 @@
 
 A modern, AI-powered resume analysis application built with React frontend and Flask backend. Get intelligent insights and recommendations to optimize your resume for better job opportunities.
 
-## 🚀 Features
+## Features
 
 - **AI-Powered Analysis**: Uses OpenAI GPT-4 for intelligent resume analysis
 - **PDF Processing**: Advanced PDF text extraction using PyMuPDF
@@ -12,7 +12,7 @@ A modern, AI-powered resume analysis application built with React frontend and F
 - **Real-time Feedback**: Get instant analysis and recommendations
 - **LinkedIn Integration**: Pull LinkedIn profiles (coming soon)
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React 18** - Modern React with hooks
@@ -29,7 +29,7 @@ A modern, AI-powered resume analysis application built with React frontend and F
 - **PyMuPDF** - PDF text extraction
 - **Python-dotenv** - Environment variable management
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 - Node.js (v16 or higher)
@@ -82,7 +82,7 @@ A modern, AI-powered resume analysis application built with React frontend and F
    ```
    The frontend will run on `http://localhost:3000`
 
-## 🎯 Usage
+## Usage
 
 1. **Open the application** in your browser at `http://localhost:3000`
 
@@ -98,7 +98,7 @@ A modern, AI-powered resume analysis application built with React frontend and F
 
 4. **Review results**: View detailed feedback and actionable recommendations
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -125,7 +125,7 @@ The Flask backend provides the following endpoints:
 - `GET /` - Home page
 - `GET /about` - About page
 
-## 🎨 Customization
+## Customization
 
 ### Styling
 The application uses Tailwind CSS for styling. You can customize the design by:
@@ -133,15 +133,9 @@ The application uses Tailwind CSS for styling. You can customize the design by:
 1. Modifying `tailwind.config.js` for theme customization
 2. Updating `src/index.css` for custom styles
 3. Changing component styles in individual React components
+   
 
-### AI Analysis
-To customize the AI analysis, modify the prompt in `app/main.py`:
-
-```python
-prompt = "Provide recommendations for the following resume, break the recommendations into sections for Education, Experience, and Skills: " + pdf_text
-```
-
-## 🚀 Deployment
+## Deployment
 
 ### Frontend Deployment
 1. Build the production version:
@@ -152,15 +146,11 @@ prompt = "Provide recommendations for the following resume, break the recommenda
 2. Deploy the `build` folder to your hosting service (Netlify, Vercel, etc.)
 
 ### Backend Deployment
-1. Deploy the Flask app to services like:
-   - Heroku
-   - PythonAnywhere
-   - Google Cloud Platform
-   - AWS
+1. Deploy the Flask app 
 
 2. Update the proxy configuration in `package.json` to point to your deployed backend URL
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -168,25 +158,7 @@ prompt = "Provide recommendations for the following resume, break the recommenda
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
-
-- OpenAI for providing the GPT-4 API
-- The React and Flask communities for excellent documentation
-- Tailwind CSS for the beautiful utility-first CSS framework
-- Framer Motion for smooth animations
-
-## 📞 Support
-
-If you have any questions or need help, please:
-
-1. Check the [Issues](https://github.com/your-repo/issues) page
-2. Create a new issue with a detailed description
-3. Contact the development team
-
----
-
-**Made with ❤️ by the Resume Analyzer Pro Team**
