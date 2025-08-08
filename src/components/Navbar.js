@@ -10,7 +10,6 @@ const Navbar = () => {
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'About', path: '/about', icon: User },
-    { name: 'Results', path: '/results', icon: FileText },
   ];
 
   return (
@@ -48,6 +47,14 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            
+            {/* Results item - only show when on results page, non-clickable */}
+            {location.pathname === '/results' && (
+              <div className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-primary-100 text-primary-700">
+                <FileText className="w-4 h-4" />
+                <span>Results</span>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -87,6 +94,14 @@ const Navbar = () => {
                   </Link>
                 );
               })}
+              
+              {/* Results item - only show when on results page, non-clickable */}
+              {location.pathname === '/results' && (
+                <div className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-100 text-primary-700">
+                  <FileText className="w-5 h-5" />
+                  <span>Results</span>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

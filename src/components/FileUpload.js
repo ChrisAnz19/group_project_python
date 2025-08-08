@@ -31,7 +31,7 @@ const FileUpload = ({ onFileUpload, isLoading }) => {
       {!uploadedFile ? (
         <motion.div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200 ${
+          className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
             isDragActive
               ? 'border-primary-400 bg-primary-50'
               : 'border-gray-300 hover:border-primary-400 hover:bg-gray-50'
