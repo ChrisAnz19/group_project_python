@@ -66,8 +66,9 @@ A modern, AI-powered resume analysis application built with React frontend and F
    ```bash
    cd web_app
    python __init__.py
+   FLASK_APP=web_app FLASK_RUN_PORT=5001 flask run --host=localhost   
    ```
-   The backend will run on `http://localhost:5000`
+   The backend will run on `http://localhost:5001`
 
 ### Frontend Setup
 
