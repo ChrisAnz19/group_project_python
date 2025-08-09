@@ -46,6 +46,9 @@ venv.bak/
 instance/
 .webassets-cache
 
+# Pytest
+.pytest_cache/
+
 # Uploads
 uploads/
 *.pdf

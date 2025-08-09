@@ -1,41 +1,64 @@
-import requests
 import json
 import os
-#from dotenv import load_dotenv
 import pymupdf
 from openai import OpenAI
 
-def get_pdf_text(file_path):
-    """
-    Extract text from a PDF file.
-    :param file_path: Path to the PDF file.
-    :return: Extracted text as a string.
-    """
-    doc = pymupdf.open(file_path)  # Open the PDF document
+def extract_pdf_text(file_path):
+    """Extract text from PDF file using PyMuPDF."""
+    doc = pymupdf.open(file_path)
     text = ""
     for page in doc:
-        text += page.get_text()  # Extract text from each page
+        text += page.get_text()
     doc.close()
     return text
 
-def openai_response(prompt):
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    client = OpenAI(api_key=OPENAI_API_KEY)
-    CHAT_MODEL_ID = "gpt-4o-mini"
-    chat_completion = client.chat.completions.create(
-        model=CHAT_MODEL_ID,
-        messages=[{"role": "user", "content": prompt}]
+
+def get_ai_analysis(prompt):
+    """Get AI analysis using OpenAI API."""
+    try:
+        # Try to load API key from secrets.json
+        secrets_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'secrets.json')
+        api_key = None
+        
+        if os.path.exists(secrets_path):
+            try:
+                with open(secrets_path, 'r') as f:
+                    content = f.read().strip()
+                    if content:
+                        secrets = json.loads(content)
+                        api_key = secrets.get('OPENAI_API_KEY') or secrets.get('openai_api_key') or secrets.get('api_key')
+                    else:
+                        print("Warning: secrets.json is empty")
+            except json.JSONDecodeError as e:
+                print(f"Warning: Invalid JSON in secrets.json: {e}")
+            except Exception as e:
+                print(f"Warning: Error reading secrets.json: {e}")
+        
+        # Fallback to environment variable
+        if not api_key:
+            api_key = os.getenv("OPENAI_API_KEY")
+            
+        if not api_key:
+            return """OpenAI API key not configured. Please add it to secrets.json in this format:
+{
+    "OPENAI_API_KEY": "sk-your-api-key-here"
+}
+Or set the OPENAI_API_KEY environment variable."""
+        
+        client = OpenAI(api_key=api_key)
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}]
         )
-    return chat_completion.choices[0].message.content
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"Error with OpenAI API: {str(e)}"
+
 
 if __name__ == "__main__":
-    
-    file_path = 'uploads/test.pdf'  # Replace with your PDF file path
-    pdf_text = get_pdf_text(file_path)
+    file_path = 'test/test.pdf'  # Replace with your PDF file path
+    pdf_text = extract_pdf_text(file_path)
     print(pdf_text)
 
     prompt = "Provide recommendations for the following resume, break the recommendations into sections for Education, Experience, and Skills: " + pdf_text
-    print(openai_response(prompt))
-
-    #link_id = input("Enter the LinkedIn linkId (e.g. 'john-doe-1234'): ")
-    #get_linkedin_profile(link_id)
+    print(get_ai_analysis(prompt))
