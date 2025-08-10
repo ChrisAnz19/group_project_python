@@ -12,14 +12,13 @@ def extract_pdf_text(file_path):
     doc.close()
     return text
 
-
 def get_ai_analysis(prompt):
     """Get AI analysis using OpenAI API."""
     try:
         # Try to load API key from secrets.json
         secrets_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'secrets.json')
         api_key = None
-        
+        # Check if secrets.json exists and read it
         if os.path.exists(secrets_path):
             try:
                 with open(secrets_path, 'r') as f:
@@ -40,16 +39,19 @@ def get_ai_analysis(prompt):
             
         if not api_key:
             return """OpenAI API key not configured. Please add it to secrets.json in this format:
-{
-    "OPENAI_API_KEY": "sk-your-api-key-here"
-}
-Or set the OPENAI_API_KEY environment variable."""
+                    {
+                    "OPENAI_API_KEY": "sk-your-api-key-here"
+                    }
+                    Or set the OPENAI_API_KEY environment variable."""
         
+        # Initialize OpenAI client
         client = OpenAI(api_key=api_key)
+        # Make the API call
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}]
         )
+        # Return the AI's response
         return response.choices[0].message.content
     except Exception as e:
         return f"Error with OpenAI API: {str(e)}"

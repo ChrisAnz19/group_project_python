@@ -59,7 +59,6 @@ A modern, AI-powered resume analysis application built with React frontend and F
    Create a `.env` file in the root directory:
    ```env
    OPENAI_API_KEY=your_openai_api_key_here
-   SCRAPINGDOG_API_KEY=your_scrapingdog_api_key_here
    ```
 
 5. **Run the Flask backend**
@@ -99,6 +98,15 @@ A modern, AI-powered resume analysis application built with React frontend and F
 
 4. **Review results**: View detailed feedback and actionable recommendations
 
+## Tests
+
+Run the tests:
+
+```sh
+# find all the tests and run them:
+pytest
+```
+
 ## Configuration
 
 ### Environment Variables
@@ -108,9 +116,6 @@ Create a `.env` file in the root directory with the following variables:
 ```env
 # OpenAI API Key for GPT-4 analysis
 OPENAI_API_KEY=sk-your-openai-api-key
-
-# ScrapingDog API Key for LinkedIn integration (optional)
-SCRAPINGDOG_API_KEY=your-scrapingdog-api-key
 
 # Flask configuration
 FLASK_ENV=development

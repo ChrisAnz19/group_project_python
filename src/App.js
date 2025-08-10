@@ -2,10 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Results from './pages/Results';
-import Footer from './components/Footer';
+import TrendingJobs from './pages/TrendingJobs';
+import Leadership from './pages/Leadership';
 
 function App() {
   return (
@@ -19,9 +21,12 @@ function App() {
             transition={{ duration: 0.5 }}
           >
             <Routes>
+              {/* Add more routes as needed */}
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/results" element={<Results />} />
+              <Route path="/trending-jobs" element={<TrendingJobs />} />
+              <Route path="/leadership" element={<Leadership />} />
             </Routes>
           </motion.div>
         </main>

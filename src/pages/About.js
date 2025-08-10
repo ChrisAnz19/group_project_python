@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Brain, 
-  FileText, 
+  Brain,
   Target, 
   TrendingUp, 
   Shield, 

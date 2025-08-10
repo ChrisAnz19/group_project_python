@@ -9,6 +9,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
+# Ensure the upload folder exists
 @app.route('/')
 def home():
     """Health check endpoint."""
@@ -79,6 +80,21 @@ def analyze_pdf_resume():
                 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
+@app.route('/trending_jobs', methods=['GET'])
+def get_trending_jobs():
+    """Get trending jobs analysis."""
+    try:
+        analysis_prompt = (
+            "Provide the top 10 fastest-growing jobs in the USA. For each job, give me Rank, Job Title, Median Salary, and Description, with each section clearly labeled exactly like that."
+        )
+        recommendation = get_ai_analysis(analysis_prompt)
+        
+        return jsonify({
+            'recommendation': recommendation
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
