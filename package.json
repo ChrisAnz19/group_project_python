@@ -13,6 +13,7 @@
     "autoprefixer": "^10.4.14",
     "axios": "^1.3.0",
     "framer-motion": "^10.0.0",
+    "jspdf": "^3.0.1",
     "lucide-react": "^0.263.1",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
@@ -35,9 +36,6 @@
       "last 1 safari version"
     ]
   },
-<<<<<<< Updated upstream
-  "proxy": "http://localhost:5000"
-=======
   "proxy": "http://localhost:5001",
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.4",
@@ -45,5 +43,4 @@
     "@testing-library/user-event": "^14.6.1",
     "jest": "^27.5.1"
   }
->>>>>>> Stashed changes
 }

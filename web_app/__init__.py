@@ -1,68 +1,104 @@
-from flask import Flask, render_template, request, jsonify
+from app.main import extract_pdf_text, get_ai_analysis
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-import app.main
-import os 
+import os
 
+
+# Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React frontend
-app.config['UPLOAD_FOLDER'] = 'uploads' # Define an upload folder
+CORS(app)
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
+# Ensure the upload folder exists
 @app.route('/')
 def home():
-    return render_template("home.html")
+    """Health check endpoint."""
+    return jsonify({"message": "Resume Analyzer API is running!"})
 
-@app.route('/about')
-def about():
-    return render_template("about.html")
-
-@app.route('/result', methods=['POST'])
-def result():
+# Endpoint to analyze resume text input
+@app.route('/analyze', methods=['POST'])
+def analyze_text_resume():
+    """Analyze resume from text input."""
     try:
-        # Get the user's choice from the form data
-        user_resume = request.form.get('resume')
+        data = request.get_json()
+        resume_text = data.get('resume_text', '')
         
-        if not user_resume:
+        if not resume_text.strip():
             return jsonify({'error': 'No resume text provided'}), 400
         
-        # Use the AI analysis from main.py
-        prompt = "Provide recommendations for the following resume, break the recommendations into sections for Education, Experience, and Skills: " + user_resume
-        resume_recommendation = app.main.openai_response(prompt)
+        analysis_prompt = (
+            "Provide recommendations for the following resume, "
+            "break the recommendations into sections for Education, Experience, and Skills: "
+            + resume_text
+        )
+        recommendation = get_ai_analysis(analysis_prompt)
         
         return jsonify({
-            'resume_recommendation': resume_recommendation,
+            'recommendation': recommendation,
             'success': True
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/result_pdf', methods=['POST'])
-def result_pdf():
+# Endpoint to analyze resume from uploaded PDF file
+@app.route('/analyze_pdf', methods=['POST'])
+def analyze_pdf_resume():
+    """Analyze resume from uploaded PDF file."""
     try:
-        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True) # Create upload folder if it doesn't exist
+        # Ensure upload directory exists
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-        file = request.files['pdf_file']
-        if file and file.filename.endswith('.pdf'): # Basic validation
-            # Save the uploaded PDF file
-            filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(filename)
+        # Validate file upload
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file uploaded'}), 400
             
-            # Extract text from PDF and analyze
-            pdf_text = app.main.get_pdf_text(filename)
-            prompt = "Provide recommendations for the following resume, break the recommendations into sections for Education, Experience, and Skills: " + pdf_text
-            resume_recommendation = app.main.openai_response(prompt)
+        uploaded_file = request.files['file']
+        if not uploaded_file or not uploaded_file.filename.endswith('.pdf'):
+            return jsonify({'error': 'Invalid file type. Only PDF files are allowed.'}), 400
+            
+        # Process the PDF file
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+        uploaded_file.save(file_path)
+        
+        try:
+            # Extract text and analyze
+            pdf_text = extract_pdf_text(file_path)
+            analysis_prompt = (
+                "Provide recommendations for the following resume, "
+                "break the recommendations into sections for Education, Experience, and Skills: "
+                + pdf_text
+            )
+            recommendation = get_ai_analysis(analysis_prompt)
             
             return jsonify({
-                'resume_recommendation': resume_recommendation,
-                'resume_upload_message': f'PDF file "{file.filename}" uploaded successfully!',
+                'recommendation': recommendation,
+                'message': f'PDF file "{uploaded_file.filename}" processed successfully!',
                 'success': True
             })
-        else:
-            return jsonify({
-                'error': 'Invalid file type. Only PDF files are allowed.',
-                'success': False
-            }), 400
+        finally:
+            # Clean up uploaded file
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
+# Endpoint to get trending jobs analysis
+@app.route('/trending_jobs', methods=['GET'])
+def get_trending_jobs():
+    """Get trending jobs analysis."""
+    try:
+        analysis_prompt = (
+            "Provide the top 10 fastest-growing jobs in the USA. For each job, give me Rank, Job Title, Median Salary, and Description, with each section clearly labeled exactly like that."
+        )
+        recommendation = get_ai_analysis(analysis_prompt)
+        
+        return jsonify({
+            'recommendation': recommendation
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the Flask app on port 5001 with debug mode enabled
+    app.run(debug=True, port=5001)

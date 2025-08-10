@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, X, FileText, User, Home } from 'lucide-react';
+import { Menu, X, FileText, User, Users, Home, TrendingUp } from 'lucide-react';
 
 const Navbar = () => {
+  // State to manage mobile menu visibility
   const [isOpen, setIsOpen] = useState(false);
+  // Get the current location to highlight active nav item
   const location = useLocation();
 
+  // Navigation items with icons and paths
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
+    { name: 'Trending Jobs', path: '/trending-jobs', icon: TrendingUp },
+    { name: 'Leadership', path: '/leadership', icon: Users },
     { name: 'About', path: '/about', icon: User },
-    { name: 'Results', path: '/results', icon: FileText },
   ];
-
+  
+  // Render the Navbar component
   return (
     <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4">
@@ -48,6 +53,14 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            
+            {/* Results item - only show when on results page, non-clickable */}
+            {location.pathname === '/results' && (
+              <div className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-primary-100 text-primary-700">
+                <FileText className="w-4 h-4" />
+                <span>Results</span>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -87,6 +100,14 @@ const Navbar = () => {
                   </Link>
                 );
               })}
+              
+              {/* Results item - only show when on results page, non-clickable */}
+              {location.pathname === '/results' && (
+                <div className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-100 text-primary-700">
+                  <FileText className="w-5 h-5" />
+                  <span>Results</span>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

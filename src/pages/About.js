@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Brain, 
-  FileText, 
+  Brain,
   Target, 
   TrendingUp, 
   Shield, 
@@ -52,6 +51,7 @@ const About = () => {
     { number: '24/7', label: 'Availability' }
   ];
 
+  // Render the About page
   return (
     <div className="max-w-6xl mx-auto">
       {/* Hero Section */}

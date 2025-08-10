@@ -4,9 +4,18 @@ import { motion } from 'framer-motion';
 import { Upload, FileText, X, CheckCircle } from 'lucide-react';
 
 const FileUpload = ({ onFileUpload, isLoading }) => {
+  // State to manage the uploaded file
   const [uploadedFile, setUploadedFile] = useState(null);
-
+  
+  // Handle file drop
   const onDrop = useCallback((acceptedFiles) => {
+    /**
+     * Handle file drop event.
+     * Args:
+     *     acceptedFiles (Array<File>): Array of files dropped by the user.
+     * Returns:
+     *     void
+     */
     const file = acceptedFiles[0];
     if (file && file.type === 'application/pdf') {
       setUploadedFile(file);
@@ -14,6 +23,7 @@ const FileUpload = ({ onFileUpload, isLoading }) => {
     }
   }, [onFileUpload]);
 
+  // Use the useDropzone hook to manage file drop events, accepts only PDF files
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
@@ -22,16 +32,18 @@ const FileUpload = ({ onFileUpload, isLoading }) => {
     multiple: false
   });
 
+  // Function to remove the uploaded file
   const removeFile = () => {
     setUploadedFile(null);
   };
 
+  // Render the file upload component
   return (
     <div className="w-full">
       {!uploadedFile ? (
         <motion.div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200 ${
+          className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 ${
             isDragActive
               ? 'border-primary-400 bg-primary-50'
               : 'border-gray-300 hover:border-primary-400 hover:bg-gray-50'

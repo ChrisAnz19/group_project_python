@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileText, Github, Linkedin, Mail } from 'lucide-react';
 
+// Footer component to display site information and links
 const Footer = () => {
   return (
     <footer className="bg-white border-t border-gray-200 mt-16">
