@@ -46,6 +46,13 @@ venv.bak/
 instance/
 .webassets-cache
 
+<<<<<<< Updated upstream
+=======
+# Pytest
+.pytest_cache/
+coverage/
+
+>>>>>>> Stashed changes
 # Uploads
 uploads/
 *.pdf

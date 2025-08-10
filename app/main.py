@@ -7,11 +7,18 @@ from openai import OpenAI
 
 def get_pdf_text(file_path):
     """
+<<<<<<< Updated upstream
     Extract text from a PDF file.
     :param file_path: Path to the PDF file.
     :return: Extracted text as a string.
     """
     doc = pymupdf.open(file_path)  # Open the PDF document
+=======
+    if file_path == "":
+        raise Exception("File path cannot be empty")
+   
+    doc = pymupdf.open(file_path)
+>>>>>>> Stashed changes
     text = ""
     for page in doc:
         text += page.get_text()  # Extract text from each page
