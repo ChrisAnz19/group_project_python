@@ -10,6 +10,9 @@ def extract_pdf_text(file_path):
     Returns:
         str: Extracted text from the PDF file.
     """
+    if file_path == "":
+        raise Exception("File path cannot be empty")
+   
     doc = pymupdf.open(file_path)
     text = ""
     for page in doc:
