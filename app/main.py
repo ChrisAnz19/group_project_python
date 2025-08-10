@@ -10,10 +10,6 @@ def extract_pdf_text(file_path):
     Returns:
         str: Extracted text from the PDF file.
     """
-    Extract text from a PDF file.
-    :param file_path: Path to the PDF file.
-    :return: Extracted text as a string.
-    """
     if file_path == "":
         raise Exception("File path cannot be empty")
    
