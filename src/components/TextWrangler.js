@@ -1,5 +1,12 @@
   // Format the analysis text to remove markdown and improve readability
   export function formatAnalysis(text) {
+    /**
+     * Format the analysis text to remove markdown and improve readability
+     * Args:
+     *     text (str): The raw analysis text.
+     * Returns:
+     *     str: Cleaned and formatted text.
+     */
     if (!text) return '';
     
     return text
@@ -18,9 +25,19 @@
       // Remove leading/trailing whitespace
       .trim();
   }
-  
+
   // Parse the analysis text into clean, organized sections
   export function parseAnalysisIntoSections(text, sectionPatterns, title, sectionTitles) {
+    /**
+     * Parse the analysis text into organized sections based on patterns.
+     * Args:
+     *     text (str): The raw analysis text.
+     *     sectionPatterns (Array<RegExp>): Patterns to identify section breaks.
+     *     title (str): Default title for the entire text if no sections found.
+     *     sectionTitles (Array<string>): Titles for each section.
+     * Returns:
+     *     Array<Object>: Array of section objects with title and content.
+     */
     const formatted = formatAnalysis(text);
 
     // Check if we have clear section indicators

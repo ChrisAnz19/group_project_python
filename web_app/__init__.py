@@ -15,6 +15,7 @@ def home():
     """Health check endpoint."""
     return jsonify({"message": "Resume Analyzer API is running!"})
 
+# Endpoint to analyze resume text input
 @app.route('/analyze', methods=['POST'])
 def analyze_text_resume():
     """Analyze resume from text input."""
@@ -39,6 +40,7 @@ def analyze_text_resume():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Endpoint to analyze resume from uploaded PDF file
 @app.route('/analyze_pdf', methods=['POST'])
 def analyze_pdf_resume():
     """Analyze resume from uploaded PDF file."""
@@ -81,6 +83,7 @@ def analyze_pdf_resume():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Endpoint to get trending jobs analysis
 @app.route('/trending_jobs', methods=['GET'])
 def get_trending_jobs():
     """Get trending jobs analysis."""
@@ -97,4 +100,5 @@ def get_trending_jobs():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
+    # Run the Flask app on port 5001 with debug mode enabled
     app.run(debug=True, port=5001)

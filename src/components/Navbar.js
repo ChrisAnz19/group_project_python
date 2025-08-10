@@ -4,16 +4,20 @@ import { motion } from 'framer-motion';
 import { Menu, X, FileText, User, Users, Home, TrendingUp } from 'lucide-react';
 
 const Navbar = () => {
+  // State to manage mobile menu visibility
   const [isOpen, setIsOpen] = useState(false);
+  // Get the current location to highlight active nav item
   const location = useLocation();
 
+  // Navigation items with icons and paths
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Trending Jobs', path: '/trending-jobs', icon: TrendingUp },
     { name: 'Leadership', path: '/leadership', icon: Users },
     { name: 'About', path: '/about', icon: User },
   ];
-
+  
+  // Render the Navbar component
   return (
     <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4">

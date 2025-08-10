@@ -4,7 +4,12 @@ import pymupdf
 from openai import OpenAI
 
 def extract_pdf_text(file_path):
-    """Extract text from PDF file using PyMuPDF."""
+    """Extract text from PDF file using PyMuPDF.
+    Args:
+        file_path (str): Path to the PDF file.
+    Returns:
+        str: Extracted text from the PDF file.
+    """
     doc = pymupdf.open(file_path)
     text = ""
     for page in doc:
@@ -13,7 +18,12 @@ def extract_pdf_text(file_path):
     return text
 
 def get_ai_analysis(prompt):
-    """Get AI analysis using OpenAI API."""
+    """Get AI analysis using OpenAI API.
+    Args:
+        prompt (str): The prompt to send to the AI.
+    Returns:
+        str: The AI's response or an error message.
+    """
     try:
         # Try to load API key from secrets.json
         secrets_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'secrets.json')
@@ -56,7 +66,7 @@ def get_ai_analysis(prompt):
     except Exception as e:
         return f"Error with OpenAI API: {str(e)}"
 
-
+# Example usage
 if __name__ == "__main__":
     file_path = 'test/test.pdf'  # Replace with your PDF file path
     pdf_text = extract_pdf_text(file_path)

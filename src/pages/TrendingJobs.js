@@ -12,7 +12,9 @@ import {
 import {parseAnalysisIntoSections} from '../components/TextWrangler';
 
 const TrendingJobs = () => {
+  // State to manage loading state and trending jobs data
   const [isLoading, setIsLoading] = useState(true);
+  // State to store trending jobs data
   const [trendingJobs, setTrendingJobs] = useState(null);
   // Define section patterns and titles
   // These patterns should match the sections in your analysis text
@@ -30,6 +32,14 @@ const TrendingJobs = () => {
   
   // Fetch trending jobs data from the backend
   useEffect(() => {
+    /**
+     * Fetch trending jobs data from the backend.
+     * This function is called when the component mounts.
+     * Returns:
+     *     void
+     * Throws:
+     *     Error: If there is an issue fetching the data.
+     */
     const fetchTrendingJobsData = async () => {
       try {
         const response = await axios.get('/trending_jobs');
@@ -48,6 +58,14 @@ const TrendingJobs = () => {
   const sections = parseAnalysisIntoSections(trendingJobs, sectionPatterns, title, sectionTitles);
 
   const getSectionIcon = (title) => {
+    /**
+     * Get the appropriate icon for a section based on its title.
+     * Args:
+     *     title (string): The title of the section.
+     * Returns:
+     *     JSX Element: The icon component for the section.
+     * This function returns different icons based on the section title.
+     */
     const lowerTitle = title.toLowerCase();
     // Return specific icons based on section title
     if (lowerTitle.includes('Rank')) return <TrendingUp className="w-5 h-5" />;
@@ -59,6 +77,14 @@ const TrendingJobs = () => {
   };
   
   const getSectionColor = (title) => {
+    /**
+     * Get the appropriate color for a section based on its title.
+     * Args:
+     *     title (string): The title of the section.
+     * Returns:
+     *     string: The CSS class for the section color.
+     * This function returns different colors based on the section title.
+     */
     const lowerTitle = title.toLowerCase();
     // Return specific colors based on section title
     if (lowerTitle.includes('Rank')) return 'bg-blue-100 text-blue-600';
@@ -68,7 +94,8 @@ const TrendingJobs = () => {
     // Default color for other sections
     return 'bg-orange-100 text-orange-600';
   };
-
+  
+  // Render the TrendingJobs component
   return (
     <div className="max-w-6xl mx-auto">
       {/* Analysis Sections */}

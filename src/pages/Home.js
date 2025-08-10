@@ -6,16 +6,21 @@ import FileUpload from '../components/FileUpload';
 import axios from 'axios';
 
 const Home = () => {
+  // State to manage the active tab
   const [activeTab, setActiveTab] = useState('upload');
+  // State to manage the resume text input
   const [resumeText, setResumeText] = useState('');
+  // State to manage loading state
   const [isLoading, setIsLoading] = useState(false);
+  // Use navigate hook for programmatic navigation
   const navigate = useNavigate();
 
+  // Function to handle file upload
   const handleFileUpload = async (file) => {
     setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
-
+    // Send the file to the backend for analysis
     try {
       const response = await axios.post('/analyze_pdf', formData, {
         headers: {
@@ -38,19 +43,21 @@ const Home = () => {
     }
   };
 
+  // Function to handle text submission
   const handleTextSubmit = async (e) => {
+    // Prevent default form submission
     e.preventDefault();
     if (!resumeText.trim()) {
       alert('Please enter your resume text');
       return;
     }
-
+    // Send the resume text to the backend for analysis
     setIsLoading(true);
     try {
       const response = await axios.post('/analyze', {
         resume_text: resumeText
       });
-      
+      // Navigate to results page with the response data
       navigate('/results', { 
         state: { 
           analysis: response.data.recommendation 
@@ -81,7 +88,8 @@ const Home = () => {
       description: 'Learn how to improve your resume formatting, clarity, and keyword optimization.'
     }
   ];
-
+  
+  // Render the Home page
   return (
     <div className="max-w-6xl mx-auto">
       {/* Hero Section */}

@@ -51,6 +51,7 @@ const About = () => {
     { number: '24/7', label: 'Availability' }
   ];
 
+  // Render the About page
   return (
     <div className="max-w-6xl mx-auto">
       {/* Hero Section */}

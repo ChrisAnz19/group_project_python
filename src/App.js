@@ -10,6 +10,7 @@ import TrendingJobs from './pages/TrendingJobs';
 import Leadership from './pages/Leadership';
 
 function App() {
+  // Main App component that sets up the router and renders pages
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
