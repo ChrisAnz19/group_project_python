@@ -28,7 +28,7 @@ A modern, AI-powered resume analysis application built with React frontend and F
 - **OpenAI GPT-4** - AI-powered analysis
 - **PyMuPDF** - PDF text extraction
 - **Python-dotenv** - Environment variable management
-
+- **gunicorn** - Python development web framework
 ## Installation
 
 ### Prerequisites
@@ -38,16 +38,26 @@ A modern, AI-powered resume analysis application built with React frontend and F
 
 ### Backend Setup
 
-1. **Clone the repository**
+1. **Clone the repository and navigate to it**
    ```bash
    git clone <repository-url>
-   cd group_project_python-1
+   cd group_project_python
    ```
 
+   repository-url is https://github.com/ChrisAnz19/group_project_python.git
+
 2. **Create a virtual environment**
+   
+   Choose either conda or python to create your virutal environment.
+   
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   conda create -n group_project_python python=3.11 # create new environment in cond
+   conda activate group_project_python # activate the environment in conda
+   ```
+
+   ```bash
+   python -m venv group_project_python # create virtual environment in python
+   source group_project_python/bin/activate  # activate virutal envrionment in python (On Windows: group_project_python\Scripts\activate)
    ```
 
 3. **Install Python dependencies**
@@ -61,12 +71,13 @@ A modern, AI-powered resume analysis application built with React frontend and F
    OPENAI_API_KEY=your_openai_api_key_here
    ```
 
+   See section on Configuration for further details on how to set up the file.
+
 5. **Run the Flask backend**
    ```bash
-   cd web_app
-   python __init__.py
    FLASK_APP=web_app FLASK_RUN_PORT=5001 flask run --host=localhost   
    ```
+
    The backend will run on `http://localhost:5001`
 
 ### Frontend Setup
@@ -80,6 +91,7 @@ A modern, AI-powered resume analysis application built with React frontend and F
    ```bash
    npm start
    ```
+
    The frontend will run on `http://localhost:3000`
 
 ## Usage
@@ -98,13 +110,12 @@ A modern, AI-powered resume analysis application built with React frontend and F
 
 4. **Review results**: View detailed feedback and actionable recommendations
 
-## Tests
+## Testing
 
-Run the tests:
+While at the root directory, use the following command to run the tests:
 
-```sh
-# find all the tests and run them:
-pytest
+```bash
+pytest # find all the tests and run them
 ```
 
 ## Configuration
@@ -130,6 +141,8 @@ The Flask backend provides the following endpoints:
 - `POST /result_pdf` - Analyze uploaded PDF file
 - `GET /` - Home page
 - `GET /about` - About page
+- `GET /trending-jobs` - Trending Jobs page
+- `GET /leadership` - Leadership page
 
 ## Customization
 
@@ -152,7 +165,11 @@ The application uses Tailwind CSS for styling. You can customize the design by:
 2. Deploy the `build` folder to your hosting service (Netlify, Vercel, etc.)
 
 ### Backend Deployment
-1. Deploy the Flask app 
+1. Deploy the Gunicorn 
+
+```bash
+OPENAI_API_KEY=your_openai_api_key_here gunicorn --bind 0.0.0.0:5001 "web_app:app" # binds to all 5001 ports 
+```
 
 2. Update the proxy configuration in `package.json` to point to your deployed backend URL
 

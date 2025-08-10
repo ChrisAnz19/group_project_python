@@ -5,6 +5,7 @@ pymupdf
 python-dotenv
 openai
 requests
+gunicorn
 
 # packages used for testing:
 pytest

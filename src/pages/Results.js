@@ -14,6 +14,7 @@ import {
   Copy,
   Check
 } from 'lucide-react';
+import {parseAnalysisIntoSections, formatAnalysis} from '../components/TextWrangler';
 
 const Results = () => {
   const location = useLocation();
@@ -110,113 +111,24 @@ const Results = () => {
       </div>
     );
   }
-
-  // Format the analysis text to remove markdown and improve readability
-  const formatAnalysis = (text) => {
-    if (!text) return '';
-    
-    return text
-      // Remove markdown headers (### ## #)
-      .replace(/^#{1,6}\s*/gm, '')
-      // Remove markdown bold (**text** or __text__)
-      .replace(/\*\*(.*?)\*\*/g, '$1')
-      .replace(/__(.*?)__/g, '$1')
-      // Remove markdown italic (*text* or _text_)
-      .replace(/\*(.*?)\*/g, '$1')
-      .replace(/_(.*?)_/g, '$1')
-      // Clean up multiple newlines
-      .replace(/\n\s*\n\s*\n/g, '\n\n')
-      // Remove leading/trailing whitespace
-      .trim();
-  };
-
-  // Parse the analysis text into clean, organized sections
-  const parseAnalysisIntoSections = (text) => {
-    const formatted = formatAnalysis(text);
-    
-    // Try to find clear section breaks first
-    const sectionPatterns = [
-      /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?Education[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi,
-      /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?Experience[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi,
-      /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?Skills?[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi,
-      /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?General[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi
-    ];
-
-    // Check if we have clear section indicators
-    let hasClearSections = false;
-    sectionPatterns.forEach(pattern => {
-      if (pattern.test(formatted)) {
-        hasClearSections = true;
-      }
-    });
-
-    // If no clear sections found, return everything as one section
-    if (!hasClearSections) {
-      return [{
-        title: 'Resume Analysis & Recommendations',
-        content: formatted
-      }];
-    }
-
-    // Try to parse sections
-    const sectionTitles = [
-      'Education Recommendations',
-      'Experience Recommendations', 
-      'Skills Recommendations',
-      'General Recommendations'
-    ];
-
-    let sections = [];
-    let workingText = formatted;
-
-    // Split by each pattern
-    sectionPatterns.forEach((pattern, index) => {
-      const parts = workingText.split(pattern);
-      if (parts.length > 1) {
-        // Found this section - take everything until the next section or end
-        let content = parts[1];
-        
-        // Remove content that belongs to subsequent sections
-        for (let j = index + 1; j < sectionPatterns.length; j++) {
-          const nextSectionMatch = content.match(sectionPatterns[j]);
-          if (nextSectionMatch) {
-            content = content.substring(0, nextSectionMatch.index);
-            break;
-          }
-        }
-        
-        if (content.trim()) {
-          sections.push({
-            title: sectionTitles[index],
-            content: content.trim()
-          });
-        }
-      }
-    });
-
-    // Remove duplicates and empty sections
-    const uniqueSections = [];
-    const seenTitles = new Set();
-    
-    sections.forEach(section => {
-      if (section.content.trim() && !seenTitles.has(section.title)) {
-        seenTitles.add(section.title);
-        uniqueSections.push(section);
-      }
-    });
-
-    // If we still don't have good sections after trying to parse, default to single section
-    if (uniqueSections.length === 0 || uniqueSections.some(s => s.content.length < 10)) {
-      return [{
-        title: 'Resume Analysis & Recommendations',
-        content: formatted
-      }];
-    }
-
-    return uniqueSections;
-  };
-
-  const sections = parseAnalysisIntoSections(analysis);
+  
+  // Define section patterns and titles
+  // These patterns should match the sections in your analysis text
+  // Adjust these patterns based on your actual analysis format
+  const sectionPatterns = [
+    /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?Education[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi,
+    /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?Experience[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi,
+    /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?Skills?[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi,
+    /(?:^|\n)\s*(?:##?\s*)?(?:\d+\.?\s*)?General[:\s]*(?:Recommendations?|Section)?[:\s]*/gmi
+  ];
+  const title = 'Resume Analysis & Recommendations';
+  const sectionTitles = [
+    'Education Recommendations',
+    'Experience Recommendations', 
+    'Skills Recommendations',
+    'General Recommendations'
+  ];
+  const sections = parseAnalysisIntoSections(analysis, sectionPatterns, title, sectionTitles);
   const formattedAnalysis = formatAnalysis(analysis);
 
   const getSectionIcon = (title) => {
