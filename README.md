@@ -115,7 +115,8 @@ A modern, AI-powered resume analysis application built with React frontend and F
 While at the root directory, use the following command to run the tests:
 
 ```bash
-pytest # find all the tests and run them
+pytest # find all Python tests and run them
+npm test -- --watchAll=false # find and run all JS tests
 ```
 
 ## Configuration
